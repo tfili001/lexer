@@ -1,0 +1,15 @@
+fn add x y
+{
+	z = x + y
+	return z
+}
+
+fn altadd x y
+{
+	return x + y
+}
+
+
+z = add x y
+
+r = altadd x 
