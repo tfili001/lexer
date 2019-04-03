@@ -1,1 +1,1 @@
-# simple lexical analyzer for future language
+# lexical analyzer for a scripting language
