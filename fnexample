@@ -12,4 +12,4 @@ fn altadd x y
 
 z = add x y
 
-r = altadd x 
+r = altadd x

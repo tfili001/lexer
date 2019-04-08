@@ -1,3 +1,0 @@
-#!/bin/bash
-
-g++ -o lexer main.cpp
