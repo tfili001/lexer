@@ -1,0 +1,22 @@
+Assignment Check
+
+   Identifier               x 
+   Equal:                   =
+   Identifier or Numeric    i+1     
+                                    Capture Var or Const
+   
+   
+   
+   
+   if i < token_n-2 && i+2 == ADD
+                                    Capture ADD and Const
+                                    Repeat until If fails
+                                    
+   Convert to RPN expression object.
+   
+   struct Expression
+   {
+        Stack[]
+        Assigned_Var
+   }
+                                   

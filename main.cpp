@@ -182,6 +182,56 @@ cout<<"["<<syms[token.symbol]<<" ("<<token.text<<")] ("
     <<token.line_num<<','<<token.col_num<<")\n";
 }
 
+struct var
+{
+    token_t token;
+    string text;
+    double value;
+};
+
+struct frame
+{
+    size_t index;
+    
+    string name;
+    size_t arg_size;
+    
+    var* local_vars;
+    size_t local_size;
+    
+    vector<var>output_stack;
+    var return_var;
+};
+
+vector<frame> parser(vector<token_t> token_list)
+{
+    vector<frame>frame_stack;
+    
+    for(size_t i = 0; i < token_list.size(); i++)
+    {
+        switch(token_list[i].symbol)
+        {  
+        
+            case IDENTIFIER:
+            {
+                if(!token_list[i+1] == EQUAL)
+                {
+                    cerr<<"Variable missing assignment\n";
+                    return frame_stack;
+                }
+                else if(!token_list[i+2] == EQUAL)                
+                
+                
+            }   
+        }
+        
+    }   
+    
+    
+    return frame_stack;
+};
+
+
 int main(int argc, char *argv[])
 {
     if(argc != 2)
@@ -191,11 +241,9 @@ int main(int argc, char *argv[])
     }
 	string src = file_to_string(argv[1]);
 
-	auto token_list = tokenize(src);
+	vector<token_t> token_list = tokenize(src);
 
-	for(const auto& token : token_list)
-		display_token(token);
-
+	
 
 return 0;
 }
