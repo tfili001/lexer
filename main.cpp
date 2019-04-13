@@ -121,9 +121,7 @@ vector<token_t> tokenize(const string& src)
 			/*  
 			    We don't i-- so we can skip past 
                 the ending string quote for the 
-                next iteration. Possibly problematic
-                for future additions. Guess we'll 
-                find out :^)
+                next iteration.
 			*/    
 				token.symbol = STRING;
 				token.text = src.substr(begin_pos+1,end_length);
@@ -190,9 +188,7 @@ struct var
 };
 
 struct frame
-{
-    size_t index;
-    
+{    
     string name;
     size_t arg_size;
     
@@ -205,31 +201,44 @@ struct frame
 
 vector<frame> parser(vector<token_t> token_list)
 {
+    vector<frame>fn_defs;
     vector<frame>frame_stack;
+ 
+    frame global_frame;
+    
     
     for(size_t i = 0; i < token_list.size(); i++)
     {
-        switch(token_list[i].symbol)
-        {  
         
-            case IDENTIFIER:
+        // Global Assignment
+        if (token_list[i].symbol == IDENTIFIER)
+        {          
+            
+            if((!token_list[i+1].symbol) == EQUAL)
             {
-                if(!token_list[i+1] == EQUAL)
-                {
-                    cerr<<"Variable missing assignment\n";
-                    return frame_stack;
-                }
-                else if(!token_list[i+2] == EQUAL)                
+                cerr<<"Variable missing assignment\n";
+                return frame_stack;
+            }
+            i+=2;
+       
+            
+            if(token_list[i].symbol == NUMERIC ||
+               token_list[i].symbol == IDENTIFIER)
+            {
                 
-                
-            }   
-        }
-        
-    }   
-    
+            }
+            else
+            {
+                cerr<<"Assignment missing value\n";
+                return frame_stack;
+            }
+            
+            cout<<"["<<token_list[i].text<<"]\n";
+        } 
+    }  
     
     return frame_stack;
-};
+}
 
 
 int main(int argc, char *argv[])
@@ -243,6 +252,7 @@ int main(int argc, char *argv[])
 
 	vector<token_t> token_list = tokenize(src);
 
+    vector<frame>frame_stack = parser(token_list); 
 	
 
 return 0;
