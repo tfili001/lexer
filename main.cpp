@@ -106,7 +106,6 @@ vector<token_t> tokenize(const string& src)
 			}
 			else if(src[i] == '\"')
 			{
-			//    cout<<"String found\n";
 				i++;
 				col_num++;
 				while(src[i] != '\"')
@@ -180,10 +179,13 @@ cout<<"["<<syms[token.symbol]<<" ("<<token.text<<")] ("
     <<token.line_num<<','<<token.col_num<<")\n";
 }
 
+
+
 struct var
 {
+    string identifier;
     token_t token;
-    string text;
+    string text_data;
     double value;
 };
 
@@ -192,7 +194,7 @@ struct frame
     string name;
     size_t arg_size;
     
-    var* local_vars;
+    vector<var> local_vars;
     size_t local_size;
     
     vector<var>output_stack;
@@ -202,10 +204,8 @@ struct frame
 vector<frame> parser(vector<token_t> token_list)
 {
     vector<frame>fn_defs;
-    vector<frame>frame_stack;
- 
+    vector<frame>frame_stack; 
     frame global_frame;
-    
     
     for(size_t i = 0; i < token_list.size(); i++)
     {
@@ -213,33 +213,44 @@ vector<frame> parser(vector<token_t> token_list)
         // Global Assignment
         if (token_list[i].symbol == IDENTIFIER)
         {          
-            
-            if((!token_list[i+1].symbol) == EQUAL)
+                display_token(token_list[i]);
+                
+            i++;
+            if(token_list[i].symbol != EQUAL)
             {
                 cerr<<"Variable missing assignment\n";
                 return frame_stack;
             }
-            i+=2;
-       
             
-            if(token_list[i].symbol == NUMERIC ||
-               token_list[i].symbol == IDENTIFIER)
+            display_token(token_list[i]);
+            
+        
+            cout<<"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
+            do
             {
+                i++;
+                display_token(token_list[i]);
+                if(token_list[i].symbol != NUMERIC &&
+                   token_list[i].symbol != IDENTIFIER)
+                {   
+                    // Operand
                 
-            }
-            else
-            {
-                cerr<<"Assignment missing value\n";
-                return frame_stack;
-            }
+                    cerr<<"Assignment missing operand\n";
+
+                    return frame_stack;
+                }
+
+                
             
-            cout<<"["<<token_list[i].text<<"]\n";
+                i++;
+            }while(token_list[i].symbol == ADD);
+            cout<<"_____________________________\n";
+            i--;
         } 
     }  
     
     return frame_stack;
 }
-
 
 int main(int argc, char *argv[])
 {

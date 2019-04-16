@@ -1,0 +1,28 @@
+Add function def count in parser to make fn_defs an array
+
+Better yet, make all vectors arrays  by keeping track of counts
+in the tokenizer.
+
+fix row and column count in tokenizer
+
+doubles like -.555 or 0.5
+
+Shunting yard algo for
+	sub, multiply, divide, exponent 2^4, parenthesis
+
+
+strings with formatting: 
+    a = hello 
+    s = "$a world"
+    
+and concatination
+    b = "world"
+    c = a + b // hello world
+
+comments // /*  */
+
+lists
+
+loops
+
+complex data types

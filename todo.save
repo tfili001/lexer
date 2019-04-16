@@ -1,0 +1,26 @@
+Add function def count in parser for array
+Possible shunting yard algorithm for execution
+
+fix row and column count in tokenizer
+
+doubles like -.555 or 0.5
+
+cout<<"index = "<<i<<endl;
+                display_token(token_list[i]);
+sub, multiply, divide, exponent 2^4
+
+strings with formatting: 
+    a = hello 
+    s = "$a world"
+    
+and concatination
+    b = "world"
+    c = a + b // hello world
+
+comments // /*  */
+
+lists
+
+loops
+
+complex data types
