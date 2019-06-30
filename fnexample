@@ -1,3 +1,5 @@
+#!/home/tim/lexer/lexer
+
 fn add x y
 {
 	z = x + y
@@ -19,3 +21,4 @@ y = 6
 
 
 r = altadd y a
+
