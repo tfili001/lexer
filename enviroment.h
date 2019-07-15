@@ -1,14 +1,15 @@
+
 #include <vector>
+#include "var.h"
 #include "frame.h"
+
+using namespace std;
 
 struct enviroment
 {
-	enviroment(vector<frame> Frame_stack,
-	           frame Global_frame)
+	enviroment(vector<frame> Frame_stack, frame Global_frame)
 	            
-	: frame_stack(Frame_stack), 
-	  global_frame(Global_frame){}
-
+	: frame_stack(Frame_stack), global_frame(Global_frame){}
 
 	vector<frame> frame_stack; 
 	frame global_frame;	    

@@ -21,25 +21,21 @@ vector<token_t> tokenize(const string& src)
 
 			if(src.substr(i,2) == "fn")
 			{
-                token.text = src.substr(i,2);
-                token.symbol = FN;
+				token = token_t(FN,src.substr(i,2));
                 i++;
 			}
 			else if(src.substr(i,6) == "return")
 			{
-			    token.text = src.substr(i,6);
-			    token.symbol = RETURN;
+				token = token_t(RETURN,src.substr(i,6));
 			    i+=5;
 			}
 			else if(src[i] == '{')
 			{
-			    token.text   = src[i];
-                token.symbol = L_BRACE;
+				token = token_t(L_BRACE,src[i]);
 			}
 			else if(src[i] == '}')
 			{
-			    token.text   = src[i];
-                token.symbol = R_BRACE;
+				token = token_t(R_BRACE,src[i]);
 			}
 			else if(isalpha(src[i]))
 			{
@@ -50,21 +46,21 @@ vector<token_t> tokenize(const string& src)
 				    i++;
 				}
 				end_length = i - begin_pos;
-				i--;
-				token.symbol = IDENTIFIER;
-				token.text   = src.substr(begin_pos,
-										  end_length);
+				i--;										  
+				token = token_t(IDENTIFIER,src.substr(begin_pos,end_length));
 			}
 			else if(src[i] == '=')
 			{
 			    col_num++;
 				token.symbol = EQUAL;
-				token.text.push_back(src[i]);
+				token = token_t(EQUAL,src[i]);
+				
 			}
 			else if(src[i] == '+')
 			{
 			    col_num++;
-				token.symbol = ADD;
+				token.symbol  = ADD;
+				token.op_type = true;
 				token.text.push_back(src[i]);
 			}
 			else if(isdigit(src[i]))
@@ -102,7 +98,7 @@ vector<token_t> tokenize(const string& src)
                 the ending string quote for the 
                 next iteration.
 			*/    
-				token.symbol = STRING;
+				token.symbol = STRING_LITERAL;
 				token.text = src.substr(begin_pos + 1,
 										end_length);
 			}
@@ -132,4 +128,30 @@ vector<token_t> tokenize(const string& src)
 	    }
 	}
 	return token_list;
+}
+
+string token_to_string(token_t token)
+{
+	const char* syms[] =
+	{
+	   "IDENTIFIER",
+	   "EQUAL",
+	   "ADD",
+	   "STRING_LITERAL",
+	   "NUMERIC",
+	   "FN",
+       "L_BRACE",
+	   "R_BRACE",
+	   "RETURN"
+	};
+
+	stringstream ss;
+	ss << '[' << syms[token.symbol] << " (" << token.text << 
+	   ")] (" << token.line_num << ',' << token.col_num << ')';
+return ss.str();
+}
+
+void display_token(token_t token)
+{
+	cout << token_to_string(token) << endl;	
 }

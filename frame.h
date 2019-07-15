@@ -1,12 +1,13 @@
-#include "var.h"
+
 #include <vector>
-#include <string>
 
 using namespace std;
 
 struct frame
-{    
-    string fn_name;
+{   
+ 	frame(void){}
+
+	const char* fn_name;
     size_t arg_size;
     
     vector<var> local_vars;

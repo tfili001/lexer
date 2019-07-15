@@ -3,58 +3,85 @@
 
 using namespace std;
 
+
 enviroment parser(vector<token_t> token_list)
 {
     vector<frame> fn_defs;
-	
     vector<frame> frame_stack;
     frame global_frame;
 	
     for(size_t i = 0; i < token_list.size(); i++)
     {   
-		if (token_list[i].symbol == FN)
-		{
-			i++;
-			if (token_list[i].symbol != IDENTIFIER)
+			if ( token_list[i].symbol == FN && i < token_list.size())
 			{
-				cerr<<"Function missing name\n";
-				exit(1);
-			}
-			frame fndef;
-			fndef.fn_name = token_list[i].text;
-			
-		}
-        // Global Assignment
-        else if (token_list[i].symbol == IDENTIFIER)
-        {          
-            display_token(token_list[i]);
-                
-            i++;
-            if(token_list[i].symbol != EQUAL)
-            {
-                cerr<<"Variable missing assignment\n";
-				exit(1);
-            }
-            
-            display_token(token_list[i]);
-            
-            do
-            {
-                i++;
-                display_token(token_list[i]);
-                if(token_list[i].symbol != NUMERIC &&
-                   token_list[i].symbol != IDENTIFIER)
-                {   
-                    // Operand           
-                    cerr<<"Assignment missing operand\n";
+				i++;
+				if ( token_list[i].symbol != IDENTIFIER )
+				{
+					cerr << "error: Function definition missing identifier\n";
 					exit(1);
-                }
-       
-                i++;
-            }while(token_list[i].symbol == ADD);
-            i--;
-        }
+				}
+				
+				frame fn_def;
+				
+				fn_def.fn_name = token_list[i].text.c_str();
+				/*
+					fn add x y
+					{
+				*/
+				i++;
+				
+				while( token_list[i].symbol != L_BRACE )
+				{
+					if( token_list[i].symbol == IDENTIFIER ) 
+					{
+						/// Argument Variables
+						var arg_var = var(token_list[i]);
+						
+						fn_def.local_vars.push_back(arg_var);
+					}
+					else
+					{
+						cerr << "error: Invalid symbol for function definition \"" 
+							 << token_list[i].text << "\"\n";
+						exit(1);
+					}
+					i++;
+				}
+				
+				fn_def.arg_size = fn_def.local_vars.size();
+				fn_defs.push_back(fn_def);
+				i++;
+				
+				if ( token_list[i].symbol == IDENTIFIER )
+				{
+					if (token_list[i+1].symbol != EQUAL)
+					{
+						cerr << "error: Identifier missing assignment\n";
+						exit(1);
+					}
+					
+					i+=2;
+					
+					if (token_list[i].symbol == IDENTIFIER || 
+						token_list[i].symbol == NUMERIC)
+					{
+						
+					}
+					else if (token_list[i].symbol == STRING_LITERAL)
+					{
+						
+					}
+					else
+					{
+						cerr << "error: can't figure out token\n";
+						display_token(token_list[i]);
+					}
+										
+				}
+				
+			}
     }  
-    enviroment env(frame_stack, global_frame);
-    return env;
+	
+	
+    return enviroment(frame_stack, global_frame);
 }
