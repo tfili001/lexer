@@ -1,1 +1,1 @@
-# Interpreter for simple language with syntax like JavaScript
+# Interpreter for simple language with JavaScript-like syntax
