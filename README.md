@@ -1,1 +1,1 @@
-# lexical analyzer for a scripting language
+# Interpreter for simple language with syntax like JavaScript
