@@ -28,7 +28,13 @@ int main(int argc, char *argv[])
 	*/
 	string src = file_to_string("fnexample");
 	vector<token_t> token_list = tokenize(src);
-
+	
+	/*
+	for(const auto &i : token_list)
+	{	 
+		display_token(i);
+	}
+	*/
 	
 	enviroment env = parser(token_list);
 	

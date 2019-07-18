@@ -1,6 +1,5 @@
-#include <string>
-#include <vector>
 #include <iostream>
+#include <sstream>
 #include "token.h"
 
 using namespace std;
@@ -31,11 +30,11 @@ vector<token_t> tokenize(const string& src)
 			}
 			else if(src[i] == '{')
 			{
-				token = token_t(L_BRACE,src[i]);
+				token = token_t(L_BRACE,"{");
 			}
 			else if(src[i] == '}')
 			{
-				token = token_t(R_BRACE,src[i]);
+				token = token_t(R_BRACE,"}");
 			}
 			else if(isalpha(src[i]))
 			{
@@ -52,8 +51,7 @@ vector<token_t> tokenize(const string& src)
 			else if(src[i] == '=')
 			{
 			    col_num++;
-				token.symbol = EQUAL;
-				token = token_t(EQUAL,src[i]);
+				token = token_t(EQUAL,"=");
 				
 			}
 			else if(src[i] == '+')
@@ -77,8 +75,7 @@ vector<token_t> tokenize(const string& src)
                 }               
 				end_length 	 = i - begin_pos;
 				token.symbol = NUMERIC;
-				token.text   = src.substr(begin_pos,
-									      end_length);
+				token.text   = src.substr(begin_pos,end_length);
 			}
 			else if(src[i] == '\"')
 			{
@@ -146,8 +143,7 @@ string token_to_string(token_t token)
 	};
 
 	stringstream ss;
-	ss << '[' << syms[token.symbol] << " (" << token.text << 
-	   ")] (" << token.line_num << ',' << token.col_num << ')';
+	ss << '[' << syms[token.symbol] << " (" << token.text << ")] (" << token.line_num << ',' << token.col_num << ')';
 return ss.str();
 }
 

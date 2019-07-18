@@ -1,12 +1,14 @@
 
 #include <vector>
+#include <iostream>
+#include "var.h"
 
 using namespace std;
 
 struct frame
 {   
- 	frame(void){}
 
+	frame(){}
 	const char* fn_name;
     size_t arg_size;
     
