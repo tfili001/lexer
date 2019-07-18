@@ -1,0 +1,18 @@
+
+fn add first second
+{
+	z = first + second
+	
+	a = z + second
+	
+	return z
+}
+
+
+fn thing foo bar
+{
+	r = foo + bar
+	
+	z = foo + r
+}
+
