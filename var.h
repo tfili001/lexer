@@ -12,20 +12,18 @@ enum type_t
 struct var
 {
 	var(){}
-	var(token_t Token)
+	var(token_t Token) : token(Token)
 	{
-	 token 		= Token;
-	 identifier = new char [Token.text.length()+1];
-	 std::strcpy (identifier, Token.text.c_str());
-	
+		identifier = new char [Token.text.length()+1];
+		std::strcpy (identifier, Token.text.c_str());
 	}
 
 	char* identifier;
-    token_t token;
-    
-    type_t type;
-    const char *str_text;
-    double value = 0;
+	token_t token;
+
+	type_t type;
+	const char *str_text;
+	double value = 0;
 	vector<token_t> expression;
 };
 

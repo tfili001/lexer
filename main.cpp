@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 	*/
-	string src = file_to_string("fnexample");
+	string src = file_to_string("../fnexample");
 	vector<token_t> token_list = tokenize(src);
 	
 	/*

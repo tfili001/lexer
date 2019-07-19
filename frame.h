@@ -12,6 +12,6 @@ struct frame
 	size_t arg_size;
 
 	vector<var> local_vars;
-	vector<var>	output_stack;
+	vector<var> output_stack;
 	var return_var;
 };

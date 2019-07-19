@@ -8,12 +8,12 @@ bool is_operand(token_t token);
 
 enviroment parser(vector<token_t> token_list)
 {
-    vector<frame> fn_defs;
-    vector<frame> frame_stack;
-    frame global_frame;
-	
-    for(size_t i = 0; i < token_list.size(); i++)
-    {   
+	vector<frame> fn_defs;
+	vector<frame> frame_stack;
+	frame global_frame;
+
+	for(size_t i = 0; i < token_list.size(); i++)
+	{   
 		if ( token_list[i].symbol == FN)
 		{
 			i++;
@@ -53,9 +53,11 @@ enviroment parser(vector<token_t> token_list)
 			
 			fn_def.arg_size = fn_def.local_vars.size();
 			i++;
+			
 			/* 
-			 * Scan function body for var assignemnts
-			 * sub function calls and finally...
+			 * Scan function body for:
+			 * variable expressions,
+			 * sub function calls, and
 			 * optional return statements
 			 */
 			 
@@ -76,14 +78,6 @@ enviroment parser(vector<token_t> token_list)
 							{
 								local_var.expression.push_back(token_list[i+1]);
 							}
-							/*
-							else if ( token_list[i + 1].symbol == NUMERIC ||
-								      token_list[i + 1].symbol == IDENTIFIER)
-							{
-								cerr << "error: token must be operator\n";
-								exit(1);
-							}
-							*/
 							else
 							{	  
 								break;
@@ -101,31 +95,30 @@ enviroment parser(vector<token_t> token_list)
 					        cerr <<"error: return statement missing value\n";
 							exit(1);
 					   }
-							
+
 					   if ( token_list[i+2].symbol != R_BRACE )
 					   {
 							cerr <<"error: function missing \'}\'\n";
 							exit(1);
 					   }
-					   
+
 					   fn_def.return_var = var(token_list[i+1]);
 					   fn_defs.push_back(fn_def);
 					   break;
 				   }
-			
 			i++;
 			}
-			
+
 			fn_defs.push_back(fn_def);
 		}
-		
-    }  
-	
+
+    }
+
 			display_frame(fn_defs[0]);
 			display_frame(fn_defs[1]);
 
 
-    return enviroment(frame_stack, global_frame);
+	return enviroment(frame_stack, global_frame);
 }
 
 bool is_operand(token_t token)
@@ -147,5 +140,6 @@ int var_search(const char* identifier, const frame &f)
 			return i;
 		}
 	}
+	
 	return -1;
 }
