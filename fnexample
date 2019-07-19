@@ -13,6 +13,13 @@ fn thing foo bar
 {
 	r = foo + bar
 	
+	a = add (foo bar)
+	
 	z = foo + r
 }
+
+x = add (3 4)
+
+thing (5 6)
+
 
