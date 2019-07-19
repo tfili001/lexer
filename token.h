@@ -8,6 +8,8 @@ enum token_symbol
 	IDENTIFIER,
 	EQUAL,
 	ADD,
+	L_PARA,
+	R_PARA,
 	STRING_LITERAL,
 	NUMERIC,
 	FN,

@@ -24,10 +24,13 @@ void display_var_list(const vector<var> &var_list)
 
 void display_frame(const frame &f)
 {
-	cout<<"fn name = "<<f.fn_name<<endl
-		<<"arg size = "<<f.arg_size<<endl
-		<<"local vars : "<<endl;
+	cout<<"function name   = "<<f.fn_name<<endl
+		<<"argunement size = "<<f.arg_size<<endl
+		<<"local variables__________________\n";
+
 	display_var_list(f.local_vars);
+
 	cout<<"output stack : "<<endl;
 	display_var_list(f.output_stack);
+	cout<<"###############################\n";
 }

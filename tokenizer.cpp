@@ -23,14 +23,14 @@ vector<token_t> tokenize(const string& src)
 				token = token_t(FN,src.substr(i,2));
                 i++;
 			}
+			else if(src[i] == '{')
+			{
+				token = token_t(L_BRACE,"{");
+			}
 			else if(src.substr(i,6) == "return")
 			{
 				token = token_t(RETURN,src.substr(i,6));
 			    i+=5;
-			}
-			else if(src[i] == '{')
-			{
-				token = token_t(L_BRACE,"{");
 			}
 			else if(src[i] == '}')
 			{
@@ -61,6 +61,13 @@ vector<token_t> tokenize(const string& src)
 				token.op_type = true;
 				token.text.push_back(src[i]);
 			}
+			else if(src[i] == '(')
+			{
+			    col_num++;
+				token.symbol  = L_PARA;
+				token.op_type = true;
+				token.text.push_back(src[i]);
+			}
 			else if(isdigit(src[i]))
 			{
 				i++;
@@ -77,6 +84,14 @@ vector<token_t> tokenize(const string& src)
 				token.symbol = NUMERIC;
 				token.text   = src.substr(begin_pos,end_length);
 			}
+			else if(src[i] == ')')
+			{
+			    col_num++;
+				token.symbol  = R_PARA;
+				token.op_type = true;
+				token.text.push_back(src[i]);
+			}
+			// Quote character
 			else if(src[i] == '\"')
 			{
 				i++;

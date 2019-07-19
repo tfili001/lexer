@@ -1,0 +1,26 @@
+
+[FN (fn)] (2,1)					fn add first second
+[IDENTIFIER (add)] (2,3)		{
+[IDENTIFIER (first)] (2,5)				
+[IDENTIFIER (second)] (2,7)				
+[L_BRACE ({)] (3,1)
+
+[IDENTIFIER (z)] (4,3)				z = first + second
+[EQUAL (=)] (4,5)
+[IDENTIFIER (first)] (4,7)
+[ADD (+)] (4,9)
+[IDENTIFIER (second)] (4,11)
+
+[IDENTIFIER (a)] (6,3)				a = b + c
+[EQUAL (=)] (6,5)
+[IDENTIFIER (b)] (6,7)
+[ADD (+)] (6,9)
+[IDENTIFIER (c)] (6,11)
+
+[RETURN (return)] (8,2)				return z
+[IDENTIFIER (z)] (8,4)
+
+
+[R_BRACE (})] (9,1)				}
+
+
