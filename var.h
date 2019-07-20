@@ -6,7 +6,8 @@ enum type_t
 	NUM,
 	STRING,
 	COMPLEX,
-	LIST
+	LIST,
+	NONE
 };
 
 struct var

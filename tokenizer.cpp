@@ -4,7 +4,7 @@
 
 using namespace std;
 
-vector<token_t> tokenize(const string& src)
+vector<token_t> tokenize(size_t &fn_def_size, const string& src)
 {
 	vector<token_t>token_list;
 	uint32_t line_num = 1;
@@ -47,6 +47,7 @@ vector<token_t> tokenize(const string& src)
 				end_length = i - begin_pos;
 				i--;										  
 				token = token_t(IDENTIFIER,src.substr(begin_pos,end_length));
+				token.op_sym = OPERAND;
 			}
 			else if(src[i] == '=')
 			{
@@ -57,15 +58,15 @@ vector<token_t> tokenize(const string& src)
 			else if(src[i] == '+')
 			{
 			    col_num++;
-				token.symbol  = ADD;
-				token.op_type = true;
+				token.symbol = ADD;
+				token.op_sym = OPERATOR;
 				token.text.push_back(src[i]);
 			}
 			else if(src[i] == '(')
 			{
 			    col_num++;
-				token.symbol  = L_PARA;
-				token.op_type = true;
+				token.symbol = L_PARA;
+				token.op_sym = PARENTHESIS;
 				token.text.push_back(src[i]);
 			}
 			else if(isdigit(src[i]))
@@ -80,15 +81,16 @@ vector<token_t> tokenize(const string& src)
                 {
                     line_num++;
                 }               
-				end_length 	 = i - begin_pos;
-				token.symbol = NUMERIC;
-				token.text   = src.substr(begin_pos,end_length);
+				end_length 	  = i - begin_pos;
+				token.symbol  = NUMERIC;
+				token.op_sym  = OPERAND;
+				token.text    = src.substr(begin_pos,end_length);
 			}
 			else if(src[i] == ')')
 			{
 			    col_num++;
 				token.symbol  = R_PARA;
-				token.op_type = true;
+				token.op_sym = PARENTHESIS;
 				token.text.push_back(src[i]);
 			}
 			// Quote character

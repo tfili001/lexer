@@ -19,30 +19,13 @@ string file_to_string(const char* path)
 
 int main(int argc, char *argv[])
 {
-	/*
-    if(argc < 2)
-    {
-        cerr<<"Missing file\n";
-        return 0;
-    }
-	*/
+
 	string src = file_to_string("../fnexample");
-	vector<token_t> token_list = tokenize(src);
-	
-	/*
-	for(const auto &i : token_list)
-	{	 
-		display_token(i);
-	}
-	*/
+	size_t fn_def_size = 0;
+	vector<token_t> token_list = tokenize(fn_def_size,src);
+
 	
 	enviroment env = parser(token_list);
 	
-	/*
-	for(const auto &i : env.frame_stack)
-	{	 
-		
-	}
-	*/	
 	return 0;
 }

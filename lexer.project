@@ -102,6 +102,7 @@
     <File Name="var.h"/>
     <File Name="display.h"/>
     <File Name="fnexample"/>
+    <File Name="symbols.h"/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>

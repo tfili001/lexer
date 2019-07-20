@@ -72,13 +72,13 @@ enviroment parser(vector<token_t> token_list)
 					   
 					i+=2;
 					   
-					while( is_operand(token_list[i]) )
+					while( token_list[i].op_sym == OPERAND )
 					{
 						if( get_var_index_by_identifier(token_list[i].text.c_str(),fn_def) != -1)
 						{
 							local_var.expression.push_back(token_list[i]);
 						}
-						else
+						else  
 						{
 							cerr <<"error: variable not declared\n";
 							display_token(token_list[i]);
@@ -99,7 +99,7 @@ enviroment parser(vector<token_t> token_list)
 				}
 				else if( token_list[i].symbol == RETURN )
 				{
-					if ( !is_operand(token_list[i+1]) &&
+					if ( token_list[i+1].op_sym != OPERAND &&
 						 token_list[i+1].symbol != STRING_LITERAL )
 					{
 						cerr <<"error: return statement missing value\n";
@@ -117,7 +117,6 @@ enviroment parser(vector<token_t> token_list)
 				}
 				i++;
 			}
-			display_frame(fn_def);
 			fn_defs.push_back(fn_def);
 		}
 		else if ( token_list[i].symbol 	   == IDENTIFIER &&
@@ -128,7 +127,7 @@ enviroment parser(vector<token_t> token_list)
 			var global_var = var(token_list[i]);					   
 			i+=2;
 					   
-			while( is_operand(token_list[i]) )
+			while( token_list[i].op_sym == OPERAND )
 			{
 				if( get_var_index_by_identifier(token_list[i].text.c_str(),global_frame) != -1)
 				{
@@ -159,24 +158,13 @@ enviroment parser(vector<token_t> token_list)
 	return enviroment(frame_stack, global_frame, fn_defs);
 }
 
-bool is_operand(token_t token)
-{
-	if ( token.symbol == IDENTIFIER ||
-	     token.symbol == NUMERIC )
-	{
-		return true;
-	}
-	return false;
-}
 
 int get_var_index_by_identifier(const char* identifier, const frame &f)
 {
 	for (unsigned int i = 0; i < f.local_vars.size(); i++)
 	{
 		if (strcmp(identifier,f.local_vars[i].identifier) == 0)
-		{
 			return i;
-		}
 	}
 	return -1;
 }
@@ -186,9 +174,7 @@ int get_frame_index_by_fn_name(const char* fn_name, const vector<frame> &frame_s
 	for (unsigned int i = 0; i < frame_stack.size(); i++)
 	{
 		if (strcmp(fn_name,frame_stack[i].fn_name) == 0)
-		{
 			return i;
-		}
 	}
 	return -1;
 }
