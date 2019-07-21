@@ -11,8 +11,7 @@ enum token_symbol
 	FN,
 	L_BRACE,
 	R_BRACE,
-	RETURN,
-	FUNCTION_CALL
+	RETURN
 };
 
 	
@@ -21,6 +20,7 @@ enum op_symbol
 	OPERATOR,
 	OPERAND,
 	PARENTHESIS,
+    FN_CALL,
 	NO_SYMBOL
 };
 	

@@ -19,6 +19,8 @@ struct token_t
 	string text;
 	uint32_t line_num;
 	uint32_t  col_num;
+    
+    int var_index;
 };
 
 vector<token_t> tokenize(size_t &fn_def_size, const string& src);

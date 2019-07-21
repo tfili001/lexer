@@ -7,6 +7,7 @@
 // local
 #include "enviroment.h"
 
+
 using namespace std;
 
 string file_to_string(const char* path)
@@ -26,6 +27,6 @@ int main(int argc, char *argv[])
 
 	
 	enviroment env = parser(token_list);
-	
+    
 	return 0;
 }
